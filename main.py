@@ -12,7 +12,7 @@ import joblib
 import pandas as pd
 
 def main():
-    # 1️⃣ Load raw data and apply feature engineering, then preprocess
+    # Load raw data and apply feature engineering, then preprocess
     from src.data_preprocessing import load_data, clean_data, encode_categorical, prepare_features
     
     df = load_data("data/raw/data.csv")
@@ -21,18 +21,18 @@ def main():
     df, encoders = encode_categorical(df)
     X, y, feature_columns = prepare_features(df)
     
-    # 2️⃣ Train all models
+    # Train all models
     results = train_all_models(X, y)
     
-    # 4️⃣ Evaluate tuned model
+    # Evaluate tuned model
     metrics = evaluate_model(results["tuned_model"], results["X_test"], results["y_test"])
     
-    print("✅ Model Evaluation Metrics:")
+    print("Model Evaluation Metrics:")
     print(metrics["classification report"])
     
-    # 5️⃣ Save best model
+    # Save best model
     joblib.dump(results["tuned_model"], "models/xgboost_model.pkl")
-    print("💾 Best model saved to models/xgboost_model.pkl")
+    print("Best model saved to models/xgboost_model.pkl")
 
 if __name__ == "__main__":
     main()
